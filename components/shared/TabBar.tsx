@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import { usePathname, Link } from 'expo-router';
-import { COLORS, FONT, SIZES, SPACING, SHADOWS } from '@/constants/theme';
+import { COLORS, FONT, SIZES, SPACING } from '@/constants/theme';
 import { useAuth } from '@/context/AuthContext';
 import { Video as LucideIcon } from 'lucide-react-native';
 
@@ -34,18 +34,20 @@ const TabBar: React.FC<TabBarProps> = ({ tabs }) => {
               isActive(tab.href) && styles.activeTab
             ]}
           >
-            <tab.icon 
-              size={24} 
-              color={isActive(tab.href) ? COLORS.primary : COLORS.gray} 
-            />
-            <Text 
-              style={[
-                styles.tabLabel, 
-                isActive(tab.href) && styles.activeTabLabel
-              ]}
-            >
-              {tab.label}
-            </Text>
+            <View style={styles.tabContent}>
+              <tab.icon 
+                size={24} 
+                color={isActive(tab.href) ? COLORS.primary : COLORS.gray} 
+              />
+              <Text 
+                style={[
+                  styles.tabLabel, 
+                  isActive(tab.href) && styles.activeTabLabel
+                ]}
+              >
+                {tab.label}
+              </Text>
+            </View>
           </TouchableOpacity>
         </Link>
       ))}
@@ -61,27 +63,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.xs,
     borderTopWidth: 1,
     borderTopColor: COLORS.lightGray,
-    ...Platform.select({
-      web: {
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
+    ...(Platform.OS === 'web' ? {
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      zIndex: 100,
+    } : {
+      elevation: 8,
+      shadowColor: COLORS.black,
+      shadowOffset: {
+        width: 0,
+        height: -3,
       },
-      default: {
-        elevation: 8,
-        shadowColor: COLORS.black,
-        shadowOffset: {
-          width: 0,
-          height: -3,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
+      shadowOpacity: 0.1,
+      shadowRadius: 3,
     }),
   },
   tab: {
+    flex: 1,
+    minHeight: 48,
+  },
+  tabContent: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
