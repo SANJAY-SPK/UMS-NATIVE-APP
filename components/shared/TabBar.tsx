@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
       left: 0,
       right: 0,
       zIndex: 100,
+      width: '100%'
     } : {
       elevation: 8,
       shadowColor: COLORS.black,
