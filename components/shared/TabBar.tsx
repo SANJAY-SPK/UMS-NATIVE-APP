@@ -27,7 +27,7 @@ const TabBar: React.FC<TabBarProps> = ({ tabs }) => {
   return (
     <View style={styles.container}>
       {tabs.map((tab) => (
-        <Link key={tab.name} href={tab.href} asChild>
+        <Link key={tab.name} href={tab.href} style={styles.link}>
           <TouchableOpacity 
             style={[
               styles.tab, 
@@ -80,6 +80,10 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.1,
       shadowRadius: 3,
     }),
+  },
+  link: {
+    flex: 1,
+    textDecoration: 'none',
   },
   tab: {
     flex: 1,
