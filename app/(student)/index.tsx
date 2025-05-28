@@ -4,6 +4,7 @@ import { COLORS, FONT, SIZES, SPACING, SHADOWS } from '@/constants/theme';
 import Header from '@/components/shared/Header';
 import { useAuth } from '@/context/AuthContext';
 import { Calendar, BookOpen, ClipboardCheck, ChevronRight, ChartBar as BarChart3 } from 'lucide-react-native';
+import { router } from 'expo-router';
 
 // Mock data
 const mockAttendanceData = {
@@ -35,6 +36,10 @@ const mockAssignmentData = {
 
 export default function StudentDashboard() {
   const { user } = useAuth();
+
+  const handleViewTimetable = () => {
+    router.push('/(student)/timetable');
+  };
 
   return (
     <View style={styles.container}>
@@ -127,7 +132,10 @@ export default function StudentDashboard() {
             <Text style={styles.examTimetableText}>
               Your next exam is <Text style={styles.examHighlight}>Mathematics</Text> on <Text style={styles.examHighlight}>June 15, 2023</Text>
             </Text>
-            <TouchableOpacity style={styles.viewTimetableButton}>
+            <TouchableOpacity 
+              style={styles.viewTimetableButton}
+              onPress={handleViewTimetable}
+            >
               <Text style={styles.viewTimetableText}>View Full Timetable</Text>
             </TouchableOpacity>
           </View>
